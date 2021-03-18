@@ -5,20 +5,14 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Name } from "./components/my-person/resources";
+import { Name as Name1 } from "./components/my-pupper/resources";
 export namespace Components {
     interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+        "saySomething": (name: Name) => Promise<void>;
+    }
+    interface MyPupper {
+        "saySomething": (name: Name) => Promise<void>;
     }
 }
 declare global {
@@ -28,27 +22,25 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLMyPupperElement extends Components.MyPupper, HTMLStencilElement {
+    }
+    var HTMLMyPupperElement: {
+        prototype: HTMLMyPupperElement;
+        new (): HTMLMyPupperElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "my-pupper": HTMLMyPupperElement;
     }
 }
 declare namespace LocalJSX {
     interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    }
+    interface MyPupper {
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "my-pupper": MyPupper;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +48,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "my-pupper": LocalJSX.MyPupper & JSXBase.HTMLAttributes<HTMLMyPupperElement>;
         }
     }
 }
